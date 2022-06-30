@@ -1,15 +1,34 @@
 package com.example.exerciciossb.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.exerciciossb.models.Cliente;
+import com.example.exerciciossb.model.entities.Cliente;
 
 @RestController
+@RequestMapping("/clientes")
 public class ClienteController {
 
-	@GetMapping("/clientes/qualquer")
+	@GetMapping("/qualquer")
 	public Cliente obterCliente() {
 		return new Cliente(28, "Pedro", "123.456.789-00");
+	}
+	
+	
+	@GetMapping("{id}")
+	public Cliente obterClientePorId1(@PathVariable int id) {	//	@para pegar id do browser e passar para Cliente
+		return new Cliente(id, "Maria", "123456789");
+	}
+	
+	
+	// Passando por parametro na query
+	@GetMapping
+	public Cliente obterClientePorId2(
+			@RequestParam(name = "id")	int id) {
+		
+		return new Cliente(id, "Joao Augusto", "123456432");
 	}
 }
